@@ -8,12 +8,20 @@ export default class Board {
   readonly height: number
   private _lost: boolean = false
   private _won: boolean = false
+  private _startTime: number = Date.now()
+  private _nMoves: number = 0
 
   get lost() {
     return this._lost
   }
   get won() {
     return this._won
+  }
+  get nMoves() {
+    return this._nMoves
+  }
+  get elapsedTime() {
+    return (Date.now() - this._startTime) / 1000
   }
 
   constructor(width: number, height: number, nMines: number) {
@@ -49,10 +57,15 @@ export default class Board {
   }
 
   flag(row: number, col: number): void {
+    this._nMoves++
     this.fields[row][col].toggleFlag()
   }
 
   reveal(row: number, col: number): void {
+    this._nMoves++
+    this._reveal(row, col)
+  }
+  private _reveal(row: number, col: number): void {
     const field = this.fields[row][col]
     if (field.isRevealed) {
       return
@@ -63,7 +76,7 @@ export default class Board {
       return
     }
     if (field.neighbours === 0){
-      this.forNeighbours(row, col, (_, row, col) => this.reveal(row, col))
+      this.forNeighbours(row, col, (_, row, col) => this._reveal(row, col))
     }
     this.checkWinningConditions()
   }
@@ -112,7 +125,7 @@ export default class Board {
     this.fields
     .map((row, r) => 
       `${r}: `.padStart(rowHeaderWidth) +
-      row.map(cell => cell.toString(revealAll).padStart(colHeaderWidth))
+      row.map(cell => cell.toString(revealAll, colHeaderWidth))
       .join(''))
     .join('\n')
   }

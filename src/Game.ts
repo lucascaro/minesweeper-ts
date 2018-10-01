@@ -20,6 +20,8 @@ export default class Game {
       await this.gameLoop()
     }
     console.log(this.board.toString(true))
+    console.log(`Elapsed time: ${this.board.elapsedTime}s`)
+    console.log('Moves:', this.board.nMoves)
     if (this.board.lost) {
       console.log('You lost! Better luck next time!')
     }

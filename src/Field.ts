@@ -1,4 +1,4 @@
-import {  } from "process";
+import { red,green,grey,yellow } from "./colors";
 
 export enum FieldState {
   DEFAULT,
@@ -48,16 +48,23 @@ export default class Field {
     this.state = this.isFlagged ? FieldState.FLAGGED : FieldState.DEFAULT
   }
 
-  toString(revealAll: boolean = false): string {
-    const S = {
+  toString(revealAll: boolean = false, padding: number = 0): string {
+    const TEXT = {
       [FieldState.DEFAULT]: '.',
       [FieldState.REVEALED]: this.hasMine ? 'x' : '' + this.neighbours,
       [FieldState.EXPLODED]: 'X',
-      [FieldState.FLAGGED]: '!',
+      [FieldState.FLAGGED]: revealAll && this.hasMine ? '!' : '!',
+    }
+    const noop = (x: string) => x
+    const COLOR  = {
+      [FieldState.DEFAULT]: noop,
+      [FieldState.REVEALED]: this.hasMine ? green : this.neighbours === 0 ? grey : noop,
+      [FieldState.EXPLODED]: red,
+      [FieldState.FLAGGED]: revealAll && this.hasMine ? green : yellow,
     }
 
     const state = revealAll && this.state === FieldState.DEFAULT ? FieldState.REVEALED : this.state
-    return S[state]
+    return COLOR[state](TEXT[state].padStart(padding))
   }
 
 }
