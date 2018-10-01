@@ -28,7 +28,7 @@ npm i && npm run build
 node .
 ```
 
---- 
+---
 
 Tested on node v10
 
