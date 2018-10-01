@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
+  "bin": {
+    "minesweeper-ts": "./bin/cli.sh"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
