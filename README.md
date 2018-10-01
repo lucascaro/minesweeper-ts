@@ -2,7 +2,21 @@
 
 This is a console version of the classic game minesweeper, implemented in typescript. For fun.
 
-Usage:
+## Usage:
+
+Binary installation:
+
+```bash
+npm i -g minesweeper-ts
+```
+
+Running:
+
+```bash
+minesweeper-ts
+```
+
+Install from source:
 
 ```bash
 # 1. clone the repository and cd into it
@@ -13,6 +27,8 @@ npm i && npm run build
 #3 Play!
 node .
 ```
+
+--- 
 
 Tested on node v10
 
