@@ -2,7 +2,7 @@
 
 This is a console version of the classic game minesweeper, implemented in typescript. For fun.
 
-## Usage:
+## Usage
 
 Binary installation:
 
